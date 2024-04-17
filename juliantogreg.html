@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Syne">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" type="image/x-icon" href="landing.ico">
+  <title>Date Conversion Tool</title>
+  <style>
+  body {
+    font-family: 'Syne', sans-serif; 
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px;
+    margin: auto;
+  }
+
+  .image-container, .form-container {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  input, button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  </style>
+</head>
+
+<body class="w3-white">
+  <!-- Image and name container. -->
+  <div class="image-container">
+    <img src="image.png" class="w3-margin" alt="Person" style="max-width:100%; height:150px; border-radius: 50%;">
+    <h2 class="w3-text-black"><strong>Date Conversion Tool</strong></h2>
+    <a href="index.html">/</a>
+  </div>
+
+  <!-- Date conversion form -->
+  <div class="form-container">
+    <p>Convert between Gregorian and Julian Day Epoch (JDE).</p>
+    <input type="date" id="gregorianDate" placeholder="Enter Gregorian date">
+    <button onclick="convertToJDEJulian()">Convert to Julian Day Epoch</button>
+    <br><br>
+    <input type="text" id="julianDate" placeholder="Enter Julian Day Epoch">
+    <button onclick="convertToGregorian()">Convert to Gregorian Date</button>
+    <p id="output"></p>
+  </div>
+
+    <script>
+        function convertToJDEJulian() {
+            const gDate = document.getElementById("gregorianDate").value;
+            const dateParts = gDate.split('-');
+            const dateObj = new Date(Date.UTC(dateParts[0], dateParts[1] - 1, dateParts[2]));
+            const startOfYear = new Date(Date.UTC(dateObj.getUTCFullYear(), 0, 0));
+            const diff = dateObj - startOfYear;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay); // Removed the +1 here
+            const century = dateObj.getUTCFullYear() < 2000 ? 0 : 1;
+            const year = dateObj.getUTCFullYear() % 100;
+            const julianDate = parseInt(`${century}${year.toString().padStart(2, '0')}${dayOfYear.toString().padStart(3, '0')}`);
+            document.getElementById("output").innerHTML = "JDE Julian Date: " + julianDate;
+        }
+
+        function convertToGregorian() {
+            const jDate = document.getElementById("julianDate").value;
+            const century = parseInt(jDate.charAt(0));
+            const year = parseInt(jDate.substr(1, 2));
+            const dayOfYear = parseInt(jDate.substr(3));
+            const yearFull = (century === 0 ? 1900 : 2000) + year;
+            const dateObj = new Date(Date.UTC(yearFull, 0, 1));
+            dateObj.setUTCDate(dayOfYear);
+            const formattedDate = `${dateObj.getUTCDate().toString().padStart(2, '0')}/${(dateObj.getUTCMonth() + 1).toString().padStart(2, '0')}/${dateObj.getUTCFullYear()}`;
+            document.getElementById("output").innerHTML = "Gregorian Date: " + formattedDate;
+        }
+    </script>
+
+</body>
+</html>
