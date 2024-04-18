@@ -6,26 +6,16 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Syne">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="icon" type="image/x-icon" href="landing.ico"> <!-- Favicon link -->
+  <link rel="icon" type="image/x-icon" href="landing.ico">
   <title>KDBFAUCET.</title>
   <style>
   body {
-    font-family: 'Syne', sans-serif; 
+    font-family: 'Syne', sans-serif;
   }
-
-  .container {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
   .image-container {
     text-align: center;
     width: 100%;
   }
-
   .links-container {
     display: flex;
     flex-direction: column;
@@ -33,37 +23,70 @@
     align-items: center;
     gap: 20px;
   }
-
   .footer-link {
     text-align: center;
     margin-top: 240px;
     display: block;
-    color: black; /* Set to any color you want */
+    color: black;
+  }
+  /* Style for the Time Calculator as a tooltip */
+  #timeCalculator {
+    display: none; /* Hide by default */
+    position: absolute;
+    right: 10%; /* Adjust according to your layout */
+    top: 160px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    z-index: 100; /* Ensure it's on top */
+    width: 200px; /* Fixed width for the tooltip */
   }
   </style>
 </head>
-
 <body class="w3-white">
-  <!-- Image and name container. Change to your picture here. -->
+  <!-- Image and name container -->
   <div class="image-container">
-    <img src="image.png" class="w3-margin" alt="Person" max-width="100%" height="150px" style="border-radius: 50%;">
-    
-    <!-- Content. Add your bio here. -->
+    <img src="image.png" class="w3-margin" alt="Person" max-width="100%" height="150px" style="border-radius: 50%;" onmouseover="showCalculator()" onmouseout="hideCalculator()">
+
+    <!-- UTC Time Calculator as tooltip -->
+    <div id="timeCalculator" class="w3-card">
+      <p>Local Time: <span id="localTime"></span></p>
+      <p>UTC Time: <span id="utcTime"></span></p>
+    </div>
+
     <div class="w3-margin">
       <h2 class="w3-text-black"><strong>KDBFAUCET.</strong></h2>
       <p>/</p>
     </div>
-
-    <!-- Links section 1. Replace the # inside of the "" with your links. -->
     <div class="links-container">
       <a href="https://kdbfaucet-engine.w3spaces.com/" class="w3-button w3-hover-blue w3-large w3-black" style="width: 350px;">One Time Password</a>
       <a href="juliantogreg.html" class="w3-button w3-hover-blue w3-large w3-black" style="width: 350px;">Julian(JDE) to Gregorian</a>
       <a href="sqlformatter.html" class="w3-button w3-hover-blue w3-large w3-black" style="width: 350px;">SQL Formatter</a>
     </div>
   </div>
-
-  <!-- Additional plain clickable text 'Peter' at the bottom -->
   <a href="peter.html" class="footer-link">Peter</a>
 
+  <script>
+    function updateTimes() {
+      const now = new Date();
+      const localTime = now.toLocaleTimeString();
+      const utcTime = now.toUTCString().slice(-12, -4);
+      document.getElementById('localTime').textContent = localTime;
+      document.getElementById('utcTime').textContent = utcTime;
+    }
+    setInterval(updateTimes, 1000);
+
+    // Show and hide functions for the tooltip
+    function showCalculator() {
+      const calculator = document.getElementById('timeCalculator');
+      calculator.style.display = 'block';
+      setTimeout(function() { calculator.style.display = 'none'; }, 10000); // Hide after 10 seconds
+    }
+    function hideCalculator() {
+      const calculator = document.getElementById('timeCalculator');
+      calculator.style.display = 'none'; // Hide immediately on mouseout
+    }
+  </script>
 </body>
 </html>
