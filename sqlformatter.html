@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Syne">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" type="image/x-icon" href="landing.ico">
+  <title>SQL Formatter Tool</title>
+  <style>
+  body {
+    font-family: 'Syne', sans-serif;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px;
+    margin: auto;
+  }
+
+  .image-container, .form-container {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  textarea {
+    width: 90%;
+    height: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    width: 45%; /* Adjusted width to fit two buttons on the same line */
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 5px; /* Small margin between buttons */
+    display: inline-block; /* Allows button to sit side by side */
+  }
+  </style>
+</head>
+
+<body class="w3-white">
+  <!-- Image and name container -->
+  <div class="image-container">
+    <img src="image.png" class="w3-margin" alt="SQL Formatting Tool" style="max-width:100%; height:150px; border-radius: 50%;">
+    <h2 class="w3-text-black"><strong>SQL Formatter Tool</strong></h2>
+    <a href="index.html">/</a>
+  </div>
+
+  <!-- SQL formatting form -->
+  <div class="form-container">
+    <p>Format your SQL code to enhance readability.</p>
+    <textarea id="inputSql" placeholder="Enter SQL code here..."></textarea>
+    <button onclick="formatSQL()">Format SQL</button>
+    <button onclick="clearText()">Clear</button> <!-- New Clear Button -->
+    <textarea id="outputSql" placeholder="Formatted SQL will appear here..." readonly></textarea>
+  </div>
+
+  <!-- sql-formatter library included from CDN for SQL formatting functionality -->
+  <script src="https://cdn.jsdelivr.net/npm/sql-formatter@4.0.2/dist/sql-formatter.min.js"></script>
+  <script>
+      function formatSQL() {
+          var inputSql = document.getElementById('inputSql').value;
+          var formattedSql = sqlFormatter.format(inputSql);
+          document.getElementById('outputSql').value = formattedSql;
+      }
+
+      function clearText() {
+          document.getElementById('inputSql').value = '';
+          document.getElementById('outputSql').value = '';
+      }
+  </script>
+
+</body>
+</html>
