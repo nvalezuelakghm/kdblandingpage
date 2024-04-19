@@ -81,12 +81,21 @@
     function showCalculator() {
       const calculator = document.getElementById('timeCalculator');
       calculator.style.display = 'block';
-      setTimeout(function() { calculator.style.display = 'none'; }, 10000); // Hide after 10 seconds
+      setTimeout(function() { calculator.style.display = 'none'; }, 60000); // Hide after 60 seconds
     }
     function hideCalculator() {
       const calculator = document.getElementById('timeCalculator');
       calculator.style.display = 'none'; // Hide immediately on mouseout
     }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDP06W68BX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HDP06W68BX');
+</script>
 </body>
 </html>
